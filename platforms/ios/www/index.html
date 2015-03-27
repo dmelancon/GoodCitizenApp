@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no' />
+
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <!-- <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" /> -->
+        <link href='http://fonts.googleapis.com/css?family=Michroma' rel='stylesheet' type='text/css'>
+         <link rel="stylesheet" href="css/chartist.min.css">
+        <script src="js/chartist.min.js"></script>
+        <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+        <script type="text/javascript" src="js/paper.js"></script>
+        <script src="lib/fastclick.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <title>Hello World</title>
+        <script type="text/paperscript" src = "js/smile.js" canvas="smile"></script>
+        <script type="text/paperscript" src = "js/rating.js" canvas="rating"></script>
+    </head>
+<img src='img/screenFilter.png' style='position:fixed;top:0px;left:0px;width:100%;z-index:2;'>
+<body >        
+<canvas id="darkCanvas" ></canvas>
+<div id ="darkText">Analyzing<br>Profile. . .</div>
+
+<div class="all-container" layout vertical center>
+<div class = "toolbar"></div>
+    <div class="citizen-container">
+      <h1>CITIZEN# <h1>
+      <h4>345344</h4></citizen-box>
+    </div>
+    <div class="smile-container" id= "smile2">
+      <canvas id="smile" resize></canvas>
+    </div>
+    <div class="rating-container" id ="rating2">
+      <canvas id="rating" resize></canvas>
+      <center><h3>TODAY</h3></center>
+      <h1>+</h1>
+    </div>
+<div id="deviceready" class="blink">
+ <p class="event listening"></p>
+ <p class="event received"></p>
+</div>
+    <div class="graph-container" layout vertical center>
+      <h1>STABILITY</h1>
+      <div class="ct-chart" id = "barChart" style="margin-left:-40px; margin-bottom:10px;margin-top:-10px;">
+      </div>
+      <div class="ct-chart" id = "centerChart" style="margin-left: -5px; margin-top: -155px; margin-bottom:-24px;">
+      </div>
+    </div>
+    <div class="graph-container" style="height:80px;" layout vertical center>
+      <h1>PRODUCTIVITY</h1>
+    </div>
+    <div class="graph-container" style="height:80px;" layout vertical center>
+      <h1>HEALTH</h1>
+    </div>
+  <script type="text/javascript" src = "js/testChart.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/simple.js"></script>
+    </body>
+</html>
