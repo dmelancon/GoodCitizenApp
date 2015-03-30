@@ -20,7 +20,7 @@
         <script type="text/paperscript" src = "js/smile.js" canvas="smile"></script>
         <script type="text/paperscript" src = "js/rating.js" canvas="rating"></script>
     </head>
-<img src='img/screenFilter.png' style='position:fixed;top:0px;left:0px;width:100%;z-index:2;'>
+<img src='img/screenFilter.png' style='position:fixed;top:0px;left:0px;width:100%;z-index:2;pointer-events: none;'>
 <body >        
 <canvas id="darkCanvas" ></canvas>
 <div id ="darkText">Analyzing<br>Profile. . .</div>
@@ -50,8 +50,10 @@
       <div class="ct-chart" id = "centerChart" style="margin-left: -5px; margin-top: -155px; margin-bottom:-24px;">
       </div>
     </div>
-    <div class="graph-container" style="height:80px;" layout vertical center>
+    <div class="graph-container" id="productivity" style="height:80px;" layout vertical center>
       <h1>PRODUCTIVITY</h1>
+      <ul id="deviceList">
+      </ul>
     </div>
     <div class="graph-container" style="height:80px;" layout vertical center>
       <h1>HEALTH</h1>

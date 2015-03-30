@@ -247,6 +247,7 @@ html,body {
     overflow:hidden
     left: 0px;
     top: 0px;
+    pointer-events: none;
   }
   #darkText{
     display:hidden;
@@ -260,5 +261,6 @@ html,body {
     overflow:hidden;
     padding:30px;
     padding-top:180px;
+    pointer-events: none;
   }
 
