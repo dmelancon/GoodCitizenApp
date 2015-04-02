@@ -20,16 +20,16 @@ function initializePath() {
 	
 	center = view.center;
 	width = view.size.width;
-	height = view.size.height / 2;
+	height = view.size.height;
 	path.segments = [];
-	path.add(view.bounds.bottomLeft);
-	path.add(new Point(0,height*1.5));
-	for (var i = 1; i < points; i++) {
-		var point = new Point(width / points * i, center.y);
+	path.add(new Point(-points/width,height));
+	path.add(new Point(0,height/2));
+	for (var i = 2; i < points-2; i++) {
+		var point = new Point(width / points * i, height);
 		path.add(point);
 	}
-	path.add(new Point(width,height*1.5));
-	path.add(view.bounds.bottomRight);
+	path.add(new Point(width,height/2));
+	path.add(new Point(width+points/width,height));
 	path.fillColor = 'black';
 	path.opacity = .7;
 
@@ -37,15 +37,9 @@ function initializePath() {
 
 function onFrame(event) {
 	var value = document.getElementById("barChart").value;
-	if (value<99.5){
-		path.segments[1].point.y =2*height-(value/100*height);
-		path.segments[points+1].point.y= 2*height-(value/100*height);
-	}
-	pathHeight += (center.y - mousePos.y - pathHeight) / 10;
-	for (var i = 2; i < points-1; i++) {
+	for (var i = 1; i < points-1; i++) {
 		var sinSeed = event.count + (i + i % 10) * 100;
-		var sinHeight = Math.sin(sinSeed / 200) * pathHeight;
-		var yPos = Math.sin(sinSeed / 100) * sinHeight + height;
+		yPos =  Math.sin(sinSeed/40)*Math.sin(sinSeed/200)+height-(value/100)*(mData.score/10)*height;
 		path.segments[i].point.y = yPos;
 	}
 		path.smooth();

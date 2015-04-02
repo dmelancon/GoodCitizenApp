@@ -50,24 +50,29 @@ function createBarChart(valArray){
 }
 
 
-//document.body.addEventListener("touchstart",function(){ 
-//	navigator.vibrate(2000);
-//	document.getElementById("centerChart").style.visibility = "visible";
-//	value = 1;
-//	values =  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-//	$( "#darkCanvas" ).css({opacity: .6, "z-index": 100});
-//	$('#darkCanvas').show();
-//	$( "#darkText" ).css({opacity: .9, "z-index": 100});
-//
-//	$('#darkText').show();
-//	$( "#darkCanvas" ).animate({opacity: 0.0}, 2500, function(){
-//			$( "#darkCanvas" ).hide();
-//			$( "#darkText" ).animate({opacity: 0.0}, 500, function(){
-//				$( "#darkText" ).hide();
-//			});
-//	       	$( "#darkCanvas" ).css({opacity: .6, "z-index": 1});  
-//    });
-//});
+document.getElementById('rating2').addEventListener("touchstart",function(){
+    $.getJSON( 'http://128.122.6.57:3000/data', function( data ) {
+               console.log(data);
+                mData.score = data.score;
+    });
+                                                
+    navigator.vibrate(2000);
+	document.getElementById("centerChart").style.visibility = "visible";
+	value = 1;
+	values =  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+	$( "#darkCanvas" ).css({opacity: .6, "z-index": 100});
+	$('#darkCanvas').show();
+	$( "#darkText" ).css({opacity: .9, "z-index": 100});
+
+	$('#darkText').show();
+	$( "#darkCanvas" ).animate({opacity: 0.0}, 2500, function(){
+			$( "#darkCanvas" ).hide();
+			$( "#darkText" ).animate({opacity: 0.0}, 500, function(){
+				$( "#darkText" ).hide();
+			});
+	       	$( "#darkCanvas" ).css({opacity: .6, "z-index": 1});  
+    });
+});
 
 
 var testData = [1, 2, 4, 2, 6, 1, 2, 0, 0, 1, 2, 4, 9, 6, 8, 2];

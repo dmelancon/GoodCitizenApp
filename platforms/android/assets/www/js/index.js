@@ -1,50 +1,71 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
+
+var OLED = {
+    service: "2C820001-3655-02AE-6848-7CC1F061A701",
+    data: "2C820002-3655-02AE-6848-7CC1F061A701"
+};
+var deviceID;
+
+var event = new Event('smile');
+
+
 var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
     },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
+
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
+//        document.addEventListener('touchstart', this.refreshDeviceList, false);
+        document.getElementById("smile").addEventListener('touchstart',this.connect, false);
+        document.body.addEventListener('touchstart', function(){
+                                       console.log(event.target);
+                                       }, false);
     },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicitly call 'app.receivedEvent(...);'
+
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+        app.refreshDeviceList();
+        FastClick.attach(document.body);
     },
-    // Update DOM on a Received Event
+    
+    refreshDeviceList: function(){
+        console.log("is this happening");
+        ble.scan([], 5, app.onDiscoverDevice, app.onError);
+    },
+
+    onDiscoverDevice: function(device) {
+        if (device.advertising.kCBAdvDataLocalName.match(/BLEOLED/i)) {
+            console.log("Device Found");
+            var listItem = document.createElement('li'),
+            html = '<b>DEVICE SYNCED</br>'
+            deviceID = device.id;
+            listItem.dataset.deviceId = device.id;  // TODO
+            listItem.innerHTML = html;
+            productivity.appendChild(listItem);
+            console.log(device.name + "has been found!");
+//           alert(device.name + "has been found!");
+        }
+    },
+    connect: function(e) {
+        console.log("is this happening?");
+        var deviceId = deviceID,
+        onConnect = function() {
+            var configData = new Uint8Array(1);
+            configData[0] = 0x00;
+            ble.write(deviceId, OLED.service, OLED.data,configData.buffer,
+                      function() { console.log("Logged Sad Face."); },app.onError);
+        };
+    
+    ble.connect(deviceId, onConnect, app.onError);
+},
+
     receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-
         console.log('Received Event: ' + id);
+    },
+    
+    onError: function(reason) {
+        alert("ERROR: " + reason); // real apps should use notification.alert
     }
 };
 

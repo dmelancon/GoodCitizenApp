@@ -37,16 +37,18 @@ document.getElementById("smile").addEventListener('touchstart',decide, false);
   }
 
 function decide(){
+    navigator.vibrate(2000);
     smileCounter = 20;
     smileNow= true;
 }
 
 function smile(){
+    
     var angle = 0;
     if (smileCounter>0){
-        for (var i = 0; i <41; i++) {
+        for (var i = 0; i <42; i++) {
             var segment = path.segments[i];
-            var sinus = Math.sin(angle*1.5)*5+50
+            var sinus = Math.sin(angle-.4)*7+48;
             angle += angleVel;
             segment.point.y = sinus;
         }
@@ -58,13 +60,19 @@ function smile(){
 }
 function frown(){
     var angle = 0;
-    for (var i = 0; i <41; i++) {
-        var segment = path.segments[i];
-        var sinus = Math.sin(angle*1.5-.5)*5+50
-        angle += angleVel;
-        segment.point.y = sinus;
+    if (smileCounter>0){
+        for (var i = 0; i <42; i++) {
+            var segment = path.segments[i];
+            var sinus = Math.sin(angle+2.6)*7+50
+            angle += angleVel;
+            segment.point.y = sinus;
+        }
+            console.log("this is happening");
+        smileCounter--;
+    }else{
+        smileNow = false;
     }
-    console.log("this is happening");
+
 }
 
 function analyzing(){
@@ -84,7 +92,7 @@ function analyzing(){
   function onFrame(event) {
         if (counter%3 ==0){
             if (smileNow == true){
-                smile();
+                frown();
             }else{
                 analyzing();
             }

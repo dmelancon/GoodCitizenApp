@@ -3,6 +3,7 @@ var OLED = {
     service: "2C820001-3655-02AE-6848-7CC1F061A701",
     data: "2C820002-3655-02AE-6848-7CC1F061A701"
 };
+//var mData = data;
 var deviceID;
 var app = {
     // Application Constructor
@@ -34,15 +35,13 @@ var app = {
         if (device.advertising.kCBAdvDataLocalName.match(/BLEOLED/i)) {
             console.log("Device Found");
             var listItem = document.createElement('li'),
-            html = '<b>' + device.name + '</b><br/>' +
-            'RSSI: ' + device.rssi + '&nbsp;|&nbsp;' +
-            device.id + '&nbsp;|&nbsp; Advertisments: ' + device.advertising.kCBAdvDataServiceUUIDs;
+            html = '<b>DEVICE SYNCED</br>'
             deviceID = device.id;
             listItem.dataset.deviceId = device.id;  // TODO
             listItem.innerHTML = html;
             productivity.appendChild(listItem);
             console.log(device.name + "has been found!");
-           alert(device.name + "has been found!");
+//           alert(device.name + "has been found!");
         }
     },
     connect: function(e) {
