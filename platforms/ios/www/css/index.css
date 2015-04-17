@@ -160,9 +160,9 @@ html,body {
     font-weight: 300;
     margin:1.5%;
     margin-right:0px;
+    width:47.5vw;
+    height:48vw;
 
-    width:47.5%;
-    height:26%;
     float:left;
   }
   .smile-container h4{
@@ -187,8 +187,8 @@ html,body {
     font-weight: 300;
     margin:1.5%;
     /*margin-top:3px;*/
-    width:48%;
-    height:26%;
+    width:48vw;
+    height:48vw;
     float:left;
     color: #black;
   }
@@ -207,7 +207,7 @@ html,body {
   
 
   .graph-container {
-    display: block;
+    display: inline;
     position: relative;
     background: #261d1d;
     background: -moz-linear-gradient(top,  #261d1d 0%, #454242 0%, #2b2829 60%, #2b2829 99%);
@@ -223,6 +223,7 @@ html,body {
     float:left;
     color:black;
     width: 97%;
+    height:48vw;
   }
   .graph-container h1{
     float:left;
@@ -231,11 +232,47 @@ html,body {
     color:#e1e1e1;
     margin-bottom: -32px;
   }
+   .graph-container h3{
+    float:left;
+    margin-left:5px;
+    font-size:8px;
+    color:#e1e1e1;
+    opacity:.5;
+    margin-top: -42px;
+  }
+    .graph-container h4{
+    float:right;
+    margin-right:5px;
+    font-size:8px;
+    opacity:.5;
+    color:#e1e1e1;
+    margin-top: -42px;
+  }
+
   #rating{
     position: absolute;
-    margin:10px;
+    margin:2.5vw;
     
   }
+#smile{
+    margin:auto;
+    position:relative;
+}
+.ct-chart .ct-label, .ct-chart .ct-label.ct-horizontal {
+    display: block;
+    width: 100%;
+    height: 100%;
+    fill: rgba(0, 0, 0, .4);
+    color: rgba(255, 255, 255, .4);
+    font-size: 10px;
+    text-align: left
+}
+  
+@keyframes dash {
+  to {
+    stroke-dashoffset: 1000;
+  }
+}
   canvas#darkCanvas {
     background-color: black;
     width: 100%;

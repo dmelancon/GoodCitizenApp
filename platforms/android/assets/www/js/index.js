@@ -5,7 +5,10 @@ var OLED = {
 };
 var deviceID;
 
-var event = new Event('smile');
+var ratingChange = new Event('ratingChange');
+
+
+
 
 
 var app = {
@@ -21,6 +24,7 @@ var app = {
         document.body.addEventListener('touchstart', function(){
                                        console.log(event.target);
                                        }, false);
+        document.addEventListener('ratingChange', this.connect, false);
     },
 
     onDeviceReady: function() {

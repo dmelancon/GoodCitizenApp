@@ -1,21 +1,28 @@
-  var myCircle = new Path.Circle(new Point(38,36), 32);
-  myCircle.fillColor = 'black';
-  var startAngle = 0;
-  var angleVel = 0.1;
-  var startAngle2 = 0;
-  var angleVel2 = 0.6;
-  var counter = 0;
-  var smileCounter = 0;
-  var smileNow = false;
-  var path = new Path({
+
+var containerWidth = .9*document.getElementById("smile2").offsetWidth/4;
+//var smile = document.getElementById("smile").style.padding = containerWidth*.2 + "px";
+
+var myCircle = new Path.Circle(new Point(containerWidth*1.1,containerWidth*1.1), containerWidth);
+myCircle.fillColor = 'black';
+var startAngle = 0;
+var angleVel = 0.1;
+var startAngle2 = 0;
+var angleVel2 = 0.6;
+var counter = 0;
+var smileCounter = 0;
+var smileNow = false;
+var path = new Path({
       strokeColor: [0.8],
       strokeWidth: 1,
       strokeCap: 'square'
-    });
-  initializePath();
+});
+
+initializePath();
 document.getElementById("smile").addEventListener('touchstart',decide, false);
-
-
+document.addEventListener('ratingChange', decide, false);
+document.addEventListener('brushChange', decide, false);
+document.addEventListener('rollChange', decide, false);
+document.addEventListener('fridgeChange', decide, false);
   function initializePath() {
     var eye1 = new Path.Line({
       from: [26, 21],
@@ -52,7 +59,7 @@ function smile(){
             angle += angleVel;
             segment.point.y = sinus;
         }
-        console.log("this is happening");
+//        console.log("this is happening");
         smileCounter--;
     }else{
         smileNow = false;
@@ -92,7 +99,12 @@ function analyzing(){
   function onFrame(event) {
         if (counter%3 ==0){
             if (smileNow == true){
-                frown();
+                if (mData.score>5){
+                    smile();
+                }else{
+                    frown();
+                }
+         
             }else{
                 analyzing();
             }

@@ -5,13 +5,6 @@ var OLED = {
 };
 var deviceID;
 
-var ratingChange = new Event('ratingChange');
-
-
-
-// Dispatch the event.
-elem.dispatchEvent(ratingChange)
-
 
 var app = {
     // Application Constructor
@@ -24,11 +17,12 @@ var app = {
 //        document.addEventListener('touchstart', this.refreshDeviceList, false);
         document.getElementById("smile").addEventListener('touchstart',this.connect, false);
         document.body.addEventListener('touchstart', function(){
-                                       console.log(event.target);
+//                                       console.log(event.target);
                                        }, false);
-        document.addEventListener('ratingChange', function (e) {
-                                this.connect;
-                                  }, false);
+        document.addEventListener('ratingChange', this.connect, false);
+        // document.addEventListener('fridgeChange', this.connect, false);
+        // document.addEventListener('rollChange', this.connect, false);
+        // document.addEventListener('brushChange', this.connect, false);
     },
 
     onDeviceReady: function() {
@@ -56,11 +50,18 @@ var app = {
         }
     },
     connect: function(e) {
-        console.log("is this happening?");
+//        console.log("is this happening?");
         var deviceId = deviceID,
         onConnect = function() {
             var configData = new Uint8Array(1);
-            configData[0] = 0x00;
+            console.log("mData.score: " +  mData.score);
+            ///this is where I can send the face change
+            if (mData.score>5){
+                configData[0] = 0x01;
+            }else{
+                console.log("score less than 5");
+                configData[0] = 0x00;
+            }
             ble.write(deviceId, OLED.service, OLED.data,configData.buffer,
                       function() { console.log("Logged Sad Face."); },app.onError);
         };
