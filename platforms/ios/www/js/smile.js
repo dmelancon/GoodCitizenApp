@@ -20,9 +20,9 @@ var path = new Path({
 initializePath();
 document.getElementById("smile").addEventListener('touchstart',decide, false);
 document.addEventListener('ratingChange', decide, false);
-document.addEventListener('brushChange', decide, false);
-document.addEventListener('rollChange', decide, false);
-document.addEventListener('fridgeChange', decide, false);
+// document.addEventListener('brushChange', decide, false);
+// document.addEventListener('rollChange', decide, false);
+// document.addEventListener('fridgeChange', decide, false);
   function initializePath() {
     var eye1 = new Path.Line({
       from: [26, 21],
@@ -44,7 +44,6 @@ document.addEventListener('fridgeChange', decide, false);
   }
 
 function decide(){
-    navigator.vibrate(2000);
     smileCounter = 20;
     smileNow= true;
 }
@@ -74,7 +73,6 @@ function frown(){
             angle += angleVel;
             segment.point.y = sinus;
         }
-            console.log("this is happening");
         smileCounter--;
     }else{
         smileNow = false;

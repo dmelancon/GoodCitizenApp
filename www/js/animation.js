@@ -1,14 +1,17 @@
 		var tp;
 		var tpImage;
 		var tpCanvas;
+		var tpBool;
 
 		var fridgeAn;
 		var fridgeImage;
 		var fridgeCanvas;
+		var frigeBool;
 
 		var brushAn;
 		var brushImage;
 		var brushCanvas;
+		var brushBool;
 
 	function gameLoop () {
 	
@@ -16,13 +19,17 @@
 
 	  tp.update();
 	  fridgeAn.update();
+	  brushAn.update();
+	  
 	  tp.render();
 	  fridgeAn.render();
-	  brushAn.update();
 	  brushAn.render();
 
 	}
 	
+
+
+
 	function sprite (options) {
 		var that = {},
 			frameIndex = 0,
@@ -47,7 +54,6 @@
         };
 		
 		that.render = function () {
-		  console.log("Gif trying to happed");
 		  that.context.clearRect(0, 0, that.width, that.height);
 		  that.context.drawImage(
 		    that.image,
@@ -104,7 +110,7 @@ fridgeCanvas = document.getElementById("fridgeAnimation");
 	fridgeImage.addEventListener("load", gameLoop);
 	fridgeImage.src = "img/fridge_white.png";
 
-brushCanvas = document.getElementById("brushAnimation");
+	brushCanvas = document.getElementById("brushAnimation");
 	brushCanvas.width = 100;
 	brushCanvas.height = 150;
 

@@ -124,7 +124,7 @@ var inc2 = 3;
 
 function animate() {
 	if (brush.week){
-		testData = brush.week;
+		this.valArray = brush.week;
 		// console.log(brush.week);
 	}
 	if (value >= 100 || value <=0){
