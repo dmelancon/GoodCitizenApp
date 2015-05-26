@@ -1,20 +1,10 @@
 //this comes from Data Server
 var testData = [100,50,56,70, 40, 71, 23];
 var tranValue = 100;
-
+var prevRollCounter = 0;
+var prevBrushCounter = 0;
 var tC = 'toothChart';
 var lineChart = new lineChart(testData,tC);
-
-document.addEventListener("brushChange", function(){
-    if (brush.week)lineChart.brushArray = brush.week;
-});
-document.addEventListener("rollChange", function(){
-    if (roll.week)lineChart.rollArray = roll.week;
-});
-document.addEventListener("fridgeChange", function(){
-    if (fridge.week)lineChart.fridgeArray = fridge.week;
-});
-
 
 var inc = 1;
 
@@ -29,12 +19,6 @@ function animate(){
     lineChart.createBarChart();
     createPieChart(increaseValue,'centerChart');   
 	}
-	window.requestAnimationFrame(animate);
-};
-
-animate();
-
-function transition(){
   if (tranValue >= 100 || tranValue <=0){
     tranValue = 100;
   }else{
@@ -43,45 +27,87 @@ function transition(){
     lineChart.animate(chartInc);
     lineChart.createBarChart();
   }
-      window.requestAnimationFrame(transition);
+	;
 };
 
-transition();
+setInterval(animate, 1000/60);
 
 
-document.getElementById('fridgeAnimation').addEventListener("touchstart", function(){
-    lineChart.valArray  = lineChart.fridgeArray;
-    $('#toothBrush h1').html("Refrigerator");
-    tranValue = 1;
-      $('.rollAnim').addClass('small');
-     $('.fridgeAnim').toggleClass('small');
-     $('.brushAnim').addClass('small');
-      $('.fridgeAnim').css({
-        top: $(this).offset().top * -1,
-        left: $(this).offset().left * -1
-      });
 
-});
-document.getElementById('tpAnimation').addEventListener("touchstart", function(){
-    lineChart.valArray  = lineChart.rollArray;
-    $('#toothBrush h1').html("Toilet Paper");
-    tranValue = 1;
-     $('.rollAnim').toggleClass('small');
-     $('.fridgeAnim').addClass('small');
-     $('.brushAnim').addClass('small');
+var brushTrigger = function(){
 
-});
-document.getElementById('brushAnimation').addEventListener("touchstart", function(){
     lineChart.valArray  = lineChart.brushArray;
     $('#toothBrush h1').html("Toothbrush");
     tranValue = 1;
+    if(!$('.brushAnim').hasClass('big'))$('.brushAnim').toggleClass('big');
+    if ($('.fridgeAnim').hasClass('big'))$('.fridgeAnim').toggleClass('big');
+    if ($('.rollAnim').hasClass('big'))$('.rollAnim').toggleClass('big');  
+    $('.smile-container h3').html(brush.counter);
+    $('.smile-container h2').html("<center>Seconds</center><center>Brushed</center><center>Today</center>");
+}
 
-      $('.rollAnim').addClass('small');
-     $('.fridgeAnim').addClass('small');
-     $('.brushAnim').toggleClass('small');
-});
+var fridgeTrigger = function(){
+  lineChart.valArray  = lineChart.fridgeArray;
+    $('#toothBrush h1').html("Refrigerator");
+    tranValue = 1;
+     if (!$('.fridgeAnim').hasClass('big'))$('.fridgeAnim').toggleClass('big');
+    if ($('.rollAnim').hasClass('big'))$('.rollAnim').toggleClass('big');
+    if ($('.brushAnim').hasClass('big'))$('.brushAnim').toggleClass('big');
+    $('.smile-container h3').html(fridge.counter);
+    $('.smile-container h2').html("<center>Times</center><center>Opened</center><center>Today</center>");
+}
 
+var tpTrigger = function(){
+    lineChart.valArray  = lineChart.tpArray;
+    $('#toothBrush h1').html("Toilet Paper");
+    tranValue = 1;
+    if (!$('.rollAnim').hasClass('big'))$('.rollAnim').toggleClass('big');
+    if ($('.fridgeAnim').hasClass('big'))$('.fridgeAnim').toggleClass('big');
+    if ($('.brushAnim').hasClass('big'))$('.brushAnim').toggleClass('big');
+    $('.smile-container h3').html(roll.counter);   
+    $('.smile-container h2').html("<center>Sheets</center><center>Used</center><center>Today</center>");
+}
 
+setTimeout(function(){
+  document.getElementById('fridgeAnimation').addEventListener("touchstart", function(){
+      fridgeTrigger();
+  });
+  document.getElementById('tpAnimation').addEventListener("touchstart", function(){
+      tpTrigger();
+  });
+  document.getElementById('brushAnimation').addEventListener("touchstart", function(){
+    brushTrigger();
+  });
+
+  document.addEventListener("brushChange", function(){
+    lineChart.brushArray = brush.week;
+     if (!brush.status){
+      $('.brushAnim').css({ opacity: 0.2 });
+    }else{
+      $('.brushAnim').css({ opacity: 0.4 });
+    }
+      brushTrigger();
+
+  });
+  document.addEventListener("rollChange", function(){
+      lineChart.tpArray = roll.week;
+      if (!roll.status){
+        $('.rollAnim').css({ opacity: 0.2 });
+      }else{
+        $('.rollAnim').css({ opacity: 0.4 });
+      }
+      tpTrigger();
+  });
+  document.addEventListener("fridgeChange", function(){
+    if (!fridge.status){
+      $('.fridgeAnim').css({ opacity: 0.2 });
+    }else{
+      $('.fridgeAnim').css({ opacity: 0.4 });
+    }
+    lineChart.fridgeArray =fridge.week;
+    fridgeTrigger();
+  });
+}, 2000);
 // //////Resetting the Rating
 
 
@@ -94,9 +120,9 @@ document.addEventListener("ratingChange", newRating);
 //rating handlers
 
 var newRating = function(){
-    navigator.vibrate(2000);
+    //navigator.vibrate(2000);
     document.getElementById("centerChart").style.visibility = "visible";
-    $( "#darkCanvas" ).css({opacity: .6, "z-index": 100});
+    $( "#darkCanvas" ).css({opacity: .8, "z-index": 100});
     $('#darkCanvas').show();
     $( "#darkText" ).css({opacity: .9, "z-index": 100});
     
@@ -106,16 +132,16 @@ var newRating = function(){
        $( "#darkText" ).animate({opacity: 0.0}, 500, function(){
           $( "#darkText" ).hide();
         });
-       $( "#darkCanvas" ).css({opacity: .6, "z-index": 1});  
+       $( "#darkCanvas" ).css({opacity: .8, "z-index": 1});  
     });
 };
 
 var resetRating = function(){
-    navigator.vibrate(2000);
+    //navigator.vibrate(2000);
     document.getElementById("centerChart").style.visibility = "visible";
     lineChart.values = [0,0,0,0,0,0,0];
     increaseValue = 1;
-    $( "#darkCanvas" ).css({opacity: .6, "z-index": 100});
+    $( "#darkCanvas" ).css({opacity: .8, "z-index": 100});
     $('#darkCanvas').show();
     $( "#darkText" ).css({opacity: .9, "z-index": 100});
     $('#darkText').show();
@@ -124,6 +150,6 @@ var resetRating = function(){
        $( "#darkText" ).animate({opacity: 0.0}, 500, function(){
                 $( "#darkText" ).hide();
         });
-       $( "#darkCanvas" ).css({opacity: .6, "z-index": 1});  
+       $( "#darkCanvas" ).css({opacity: .8, "z-index": 1});  
     });
 };

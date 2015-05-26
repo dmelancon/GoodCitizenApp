@@ -45,6 +45,7 @@ var app = {
             listItem.dataset.deviceId = device.id;  // TODO
             listItem.innerHTML = html;
             productivity.appendChild(listItem);
+            $('.smile-container h2').html("<center>Device</center><center>Found!</center>");
             console.log(device.name + "has been found!");
 //           alert(device.name + "has been found!");
         }
@@ -56,7 +57,7 @@ var app = {
             var configData = new Uint8Array(1);
             console.log("mData.score: " +  mData.score);
             ///this is where I can send the face change
-            if (mData.score>5){
+            if (mData.score>0){
                 configData[0] = 0x01;
             }else{
                 console.log("score less than 5");
@@ -74,7 +75,7 @@ var app = {
     },
     
     onError: function(reason) {
-        alert("ERROR: " + reason); // real apps should use notification.alert
+        //alert("ERROR: " + reason); // real apps should use notification.alert
     }
 };
 

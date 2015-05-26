@@ -2,11 +2,11 @@
 var lineChart = function(valArray,divId){
 	this.divId = divId;
 	this.valArray = valArray;
-	this.brushArray;
-	this.tpArray;
-	this.fridgeArray;
+	this.brushArray = valArray;
+	this.tpArray = valArray;
+	this.fridgeArray = valArray;
 	this.values = [0,0,0,0,0,0,0];
-	this.maxVal = 0;
+	this.maxVal = 0; 
 	this.chart;
 
 }
@@ -30,8 +30,8 @@ lineChart.prototype.createBarChart = function(){
 	var options = {
 	  high: tempMax,
 	  low: 0,
-	  width: 360,
-	  height: 170,
+	  // width: 320,
+	  // height: 170,
 	  showArea: true,
 	  axisX: {
 	    showGrid: false,
@@ -39,7 +39,8 @@ lineChart.prototype.createBarChart = function(){
 	  },
 	  axisY: {
 	    showGrid: false,
-	    showLabel: false
+	    showLabel: false,
+	    offset: 0
 	  },
 		lineSmooth: Chartist.Interpolation.simple({
 	    divisor: 100	  })
@@ -70,6 +71,7 @@ lineChart.prototype.createBarChart = function(){
 }	
 
 lineChart.prototype.update = function(){
+	console.log(this.values);
 	var data = {
 	  labels: ['1 Week Ago', null, null, null, null, 'Today', null],
 	  series: [this.values]
@@ -124,8 +126,12 @@ function createPieChart(value, divId){
 		  }, {
 		    donut: true,
 		    startAngle: 270,
-		    donutWidth: 110,
+		    donutWidth: 200,
 		    total: 100,
+		    showLabel: false,
+		    axisX: {
+      			offset: -10
+   			},
 		    labelInterpolationFnc: function(value) {
     				return value + '%';
   			}
@@ -133,7 +139,7 @@ function createPieChart(value, divId){
 		    if(data.type === 'slice') {
 		      var deg = data.value / 100 * 360;
 		      data.element.attr({
-		      	'style' : 'stroke: white; opacity:'+ (1.0-(data.value/100))+';stroke-width: 15px',
+		      	'style' : 'stroke: white; opacity:'+ (1.0-(data.value/100))+';stroke-width: 35px',
 		      });
 		    }
 	});

@@ -12,23 +12,95 @@
 		var brushImage;
 		var brushCanvas;
 		var brushBool;
+		var brushTrue = false;
+		var tpTrue = false;
+		var fridgeTrue = false;
+		var brushInc = 0;
+		var fridgeInc = 0;
+		var tpInc = 0;
 
-	function gameLoop () {
-	
-	  window.requestAnimationFrame(gameLoop);
+	// function gameLoop () {
+	//   window.requestAnimationFrame(gameLoop);
 
-	  tp.update();
-	  fridgeAn.update();
-	  brushAn.update();
-	  
-	  tp.render();
-	  fridgeAn.render();
-	  brushAn.render();
+	//   tp.update();
+	//   fridgeAn.update();
+	//   brushAn.update();
 
+	//   tp.render();
+	//   fridgeAn.render();
+	//   brushAn.render();
+	// }
+
+	function brushLoop(){
+		window.requestAnimationFrame(brushLoop);
+		if (brushInc>385){
+			brushTrue = false;
+			brushInc = 0;
+		}
+		if (brushTrue){
+			brushAn.update();
+			brushAn.render();
+			brushInc++;
+		}
+		
 	}
+
+	function tpLoop(){
+		window.requestAnimationFrame(tpLoop);
+		if (tpInc>385){
+			tpTrue = false;
+			tpInc = 0;
+		}
+		if (tpTrue){
+			tp.update();
+			tp.render();
+			tpInc++;
+		}
+		
+	}
+
+	function fridgeLoop(){
+		window.requestAnimationFrame(fridgeLoop);
+		if (fridgeInc>385){
+			fridgeTrue = false;
+			fridgeInc = 0;
+		}
+		if (fridgeTrue){
+			fridgeAn.update();
+			fridgeAn.render();
+			fridgeInc++;
+		}
+		
+	}
+
+	function load(){
+			fridgeAn.update();
+			fridgeAn.render();
+			tp.update();
+			tp.render();
+			brushAn.update();
+			brushAn.render();
+		}
+
+	document.addEventListener("brushChange", function(){
+			brushTrue = true;
+			// navigator.vibrate(2000);
+
+	});
 	
 
+	document.addEventListener("rollChange", function(){
+			tpTrue = true;
+			// navigator.vibrate(2000);
 
+	})
+	
+	document.addEventListener("fridgeChange", function(){
+			fridgeTrue = true;
+			// navigator.vibrate(2000);
+
+	});
+	
 
 	function sprite (options) {
 		var that = {},
@@ -86,11 +158,11 @@
 	tp.context.moveTo(.5, 0);
 	tp.context.lineTo(.5, 0);
 	tp.context.scale(.5,.5);
-	tpImage.addEventListener("load", gameLoop);
+	tpImage.addEventListener("load", tpLoop);
 	tpImage.src = "img/tP_white.png";
 
 
-fridgeCanvas = document.getElementById("fridgeAnimation");
+    fridgeCanvas = document.getElementById("fridgeAnimation");
 	fridgeCanvas.width = 100;
 	fridgeCanvas.height = 150;
 
@@ -107,7 +179,7 @@ fridgeCanvas = document.getElementById("fridgeAnimation");
 	fridgeAn.context.moveTo(.5, 0);
 	fridgeAn.context.lineTo(.5, 0);
 	fridgeAn.context.scale(.5,.5);
-	fridgeImage.addEventListener("load", gameLoop);
+	fridgeImage.addEventListener("load", fridgeLoop);
 	fridgeImage.src = "img/fridge_white.png";
 
 	brushCanvas = document.getElementById("brushAnimation");
@@ -127,5 +199,7 @@ fridgeCanvas = document.getElementById("fridgeAnimation");
 	brushAn.context.moveTo(.5, 0);
 	brushAn.context.lineTo(.5, 0);
 	brushAn.context.scale(.5,.5);
-	brushImage.addEventListener("load", gameLoop);
+	brushImage.addEventListener("load", brushLoop);
+	brushImage.addEventListener("load", load);
 	brushImage.src = "img/toothBrush_white.png";
+

@@ -1,5 +1,5 @@
 
-var containerWidth = .9*document.getElementById("smile2").offsetWidth/4;
+var containerWidth = .9*document.getElementById("smile2").offsetWidth/2;
 //var smile = document.getElementById("smile").style.padding = containerWidth*.2 + "px";
 
 var myCircle = new Path.Circle(new Point(containerWidth*1.1,containerWidth*1.1), containerWidth);
@@ -25,20 +25,20 @@ document.addEventListener('ratingChange', decide, false);
 // document.addEventListener('fridgeChange', decide, false);
   function initializePath() {
     var eye1 = new Path.Line({
-      from: [26, 21],
-      to: [26, 27],
+      from: [52, 42],
+      to: [52, 54],
       strokeColor: 'white',
-      strokeWidth: 2,
+      strokeWidth: 4,
       strokeCap: 'round'
     }); 
       var eye2 = new Path.Line({
-      from: [49, 21],
-      to: [49, 27],
+      from: [98, 42],
+      to: [98, 54],
       strokeColor: 'white',
-      strokeWidth: 2,
+      strokeWidth: 4,
       strokeCap: 'round'
       }); 
-    for (var i = 17; i <= 58; i++) {
+    for (var i = 34; i <= 112; i+=2) {
       path.add(new Point(i));
     }
   }
@@ -52,9 +52,9 @@ function smile(){
     
     var angle = 0;
     if (smileCounter>0){
-        for (var i = 0; i <42; i++) {
+        for (var i = 0; i <=39; i++) {
             var segment = path.segments[i];
-            var sinus = Math.sin(angle-.4)*7+48;
+            var sinus = Math.sin(angle-.4)*11+96;
             angle += angleVel;
             segment.point.y = sinus;
         }
@@ -67,9 +67,9 @@ function smile(){
 function frown(){
     var angle = 0;
     if (smileCounter>0){
-        for (var i = 0; i <42; i++) {
+        for (var i = 0; i <=39; i++) {
             var segment = path.segments[i];
-            var sinus = Math.sin(angle+2.6)*7+50
+            var sinus = Math.sin(angle+2.8)*11+100
             angle += angleVel;
             segment.point.y = sinus;
         }
@@ -85,9 +85,9 @@ function analyzing(){
     var angle = startAngle;
     startAngle2 += 1.2;
     var angle2 = startAngle2;
-    for (var i = 0; i <= 41; i++){
+    for (var i = 0; i <= 39; i++){
         var segment = path.segments[i];
-        var sinus = Math.sin(angle)*6*Math.sin(angle2)+50;
+        var sinus = Math.sin(angle)*11*Math.sin(angle2)+100;
         angle += angleVel;
         angle2 += angleVel2;
         segment.point.y = sinus;
@@ -97,7 +97,7 @@ function analyzing(){
   function onFrame(event) {
         if (counter%3 ==0){
             if (smileNow == true){
-                if (mData.score>5){
+                if (mData.score>0){
                     smile();
                 }else{
                     frown();

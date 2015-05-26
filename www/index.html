@@ -5,8 +5,8 @@
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="msapplication-tap-highlight" content="no" />
-        <meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no' />
-
+        <!-- <meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no' /> -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <!-- <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" /> -->
         <link href='http://fonts.googleapis.com/css?family=Michroma ' rel='stylesheet' type='text/css'>
@@ -23,39 +23,44 @@
 
 
     </head>
-<img src='img/screenFilter.png' style='position:fixed;top:0px;left:0px;width:100%;z-index:2;pointer-events: none;'>
+    <!-- overflow: hidden; width: inherit;  -->
 <body >        
+<img src='img/screenFilter.png' style='position:fixed;top:0px;left:0px;z-index:2;pointer-events: none;overflow: none; width: inherit; '>
+
 <canvas id="darkCanvas" ></canvas>
 <div id ="darkText">Analyzing<br>Profile. . .</div>
 
 <div class="all-container" layout vertical center>
 <div class = "toolbar"></div>
     <div class="citizen-container">
-      <h1>CITIZEN# <h1>
-      <h4>345344</h4></citizen-box>
+      <h1>CITIZEN# </h1>
+      <h4>345344</h4>
     </div>
     <div class="smile-container" id= "smile2">
-      <canvas id="smile" resize></canvas>
+      <canvas id="smile" ></canvas>
     </div>
     <div class="rating-container" id ="rating2">
-      <canvas id="rating" resize></canvas>
+      <canvas id="rating" ></canvas>
       <center><h3>TODAY</h3></center>
       <h1>+</h1>
     </div>
-  <div id="deviceready" class="blink">
-   <p class="event listening"></p>
-   <p class="event received"></p>
-  </div>
   <div class="graph-container" id = "toothBrush" layout vertical center>
-    <h1>Toothbrush</h1>
-    <div class="ct-chart" id = "toothChart" style="margin-bottom:15px;margin-top:-10px; margin-left:-23px;">
+    <h1>Toilet Paper</h1>
+    <div class="ct-chart" id = "toothChart" style="margin-bottom:15px;margin-top:-10px;padding-left:30px;">
     </div>
     <h3>1 Week Ago</h3>
     <h4>Today</h4>
-    <div class="ct-chart" id = "centerChart" style="margin-left: -5px; margin-top: -195px; margin-bottom:-24px;"></div>
+    <div class="ct-chart" id = "centerChart" style="margin-left: -5px; margin-top: -105px; visibility: hidden; position: absolute; z-index:4;"></div>
   </div>
- <div class="graph-container" id = "animations" layout vertical center>
- <canvas id = 'tpAnimation' class="rollAnim small" style= "opacity:.3;float:right;"></canvas><canvas id = 'fridgeAnimation' class="fridgeAnim small" style= "opacity:.3; float:right;"></canvas><canvas id = 'brushAnimation' class="brushAnim" style= "opacity:.3; float:right;"></canvas>
+  <div class="smile-container" style="height:50vw; margin-top:0px;" layout vertical center>
+<!--  <h2><center> Today's</center>
+ <center>Count</center></h2> -->
+  <center><h3></h3></center>
+  <h2></h2>
+  </div>
+ <div class="rating-container" id = "animations" style="height:50vw; margin-top:0px;" layout vertical center>
+ <div class = "deviceContainer"></div>
+ <canvas id = 'tpAnimation' class="rollAnim" ></canvas><canvas id = 'fridgeAnimation' class="fridgeAnim"></canvas><canvas id = 'brushAnimation' class="brushAnim" ></canvas>
   </div>
         <script type="text/javascript" src = "js/charts.js"></script>
         <script type="text/javascript" src ="js/helpers.js"></script>

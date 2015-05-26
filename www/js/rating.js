@@ -2,7 +2,7 @@ var width, height, center;
 var points = 5;
 var smooth = true;
 var point = new Point(0, 0);
-var containerWidth = .9*document.getElementById("rating2").offsetWidth/2;
+var containerWidth = .9*document.getElementById("rating2").offsetWidth;
 var size = new Size(containerWidth,containerWidth);
 var rect = new Path.Rectangle(point, size);
 rect.fillColor = '#e1e1e1';
@@ -34,14 +34,20 @@ function initializePath() {
 	path.fillColor = 'black';
 	path.opacity = .7;
 }
-
+function map( in_min , in_max , out_min , out_max ) {
+  return ( this - in_min ) * ( out_max - out_min ) / ( in_max - in_min ) + out_min;
+}
 function onFrame(event) {
 	var mValue = increaseValue;
+	pathHeight += (center.y - mousePos.y - pathHeight) / 10;
 	for (var i = 1; i < points-1; i++) {
+		// var sinHeight = Math.sin(sinSeed / 200) * pathHeight;
 		var sinSeed = event.count + (i + i % 10) * 100;
-		yPos =  Math.sin(sinSeed/40)*Math.sin(sinSeed/200)+height-(mValue/100)*(mData.score/10)*height;
+		yPos =  Math.sin(sinSeed/50)*Math.cos(sinSeed/200)*pathHeight/3+height-(mValue/100)*((mData.score/10) +.5)*height;
 		path.segments[i].point.y = yPos;
 	}
-		path.smooth();
+		// path.smooth();
 }
-
+// $('body').click(function(event){
+// 	mousePos.y= event.offsetY;
+// });
